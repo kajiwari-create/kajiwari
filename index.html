@@ -18,7 +18,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #F9FAFB; color: var(--text); padding: 16px; max-width: 600px; margin: 0 auto; line-height: 1.5; padding-bottom: 40px; }
+    body { background-color: #F9FAFB; color: var(--text); padding: 16px; max-width: 600px; margin: 0 auto; line-height: 1.5; padding-bottom: 140px; }
 
     header { text-align: center; margin-bottom: 12px; }
     h1 { font-size: 1.4rem; color: var(--primary); margin-bottom: 2px; }
@@ -91,11 +91,21 @@
     .stage-selector.active { display: flex; flex-wrap: wrap; }
     .stage-label { font-size: 0.85rem; color: #475569; display: flex; align-items: center; gap: 6px; cursor: pointer; background: #F8FAFC; padding: 6px 10px; border-radius: 6px; border: 1px solid #E2E8F0; }
 
-    /* 結果表示エリア */
-    .action-area { margin-top: 20px; text-align: center; }
-    .btn-submit { background: #10B981; color: white; border: none; padding: 12px 24px; font-size: 1rem; font-weight: bold; border-radius: 10px; cursor: pointer; width: 100%; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2); }
-    
-    .result-box { display: none; background: white; border-radius: 14px; border: 1px solid #CBD5E1; padding: 16px; margin-top: 20px; text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    /* 固定フッター (Sticky Footer) */
+    .sticky-footer { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #CBD5E1; box-shadow: 0 -4px 16px rgba(0,0,0,0.12); padding: 10px 16px 14px; z-index: 100; max-width: 600px; margin: 0 auto; }
+    .ratio-bar-container { margin-bottom: 4px; }
+    .ratio-labels { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px; }
+    .label-husband { color: var(--husband-color); }
+    .label-wife { color: var(--wife-color); }
+    .progress-bar { height: 10px; background: #E2E8F0; border-radius: 5px; overflow: hidden; display: flex; }
+    .progress-husband { background: var(--husband-color); height: 100%; transition: width 0.3s; }
+    .progress-wife { background: var(--wife-color); height: 100%; transition: width 0.3s; }
+    .disclaimer { font-size: 0.72rem; color: #6B7280; text-align: center; margin-bottom: 8px; line-height: 1.3; }
+    .btn-submit-footer { background: #10B981; color: white; border: none; padding: 11px; font-size: 0.95rem; font-weight: bold; border-radius: 10px; cursor: pointer; width: 100%; box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3); }
+
+    /* 結果画面（次ページ） */
+    #resultView { display: none; }
+    .result-box { background: white; border-radius: 14px; border: 1px solid #CBD5E1; padding: 16px; text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
     .result-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 14px; text-align: center; color: var(--text); border-bottom: 2px dashed #E2E8F0; padding-bottom: 8px; }
     
     /* 人別のカードスタイル */
@@ -116,7 +126,8 @@
     .res-chips-container { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
     .task-chip { background: white; color: #334155; font-size: 0.78rem; padding: 4px 9px; border-radius: 14px; border: 1px solid #E2E8F0; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
 
-    .btn-copy { background: #374151; color: white; border: none; padding: 10px; font-size: 0.85rem; border-radius: 8px; width: 100%; margin-top: 6px; cursor: pointer; font-weight: bold; }
+    .btn-copy { background: #10B981; color: white; border: none; padding: 12px; font-size: 0.95rem; border-radius: 8px; width: 100%; margin-top: 6px; cursor: pointer; font-weight: bold; }
+    .btn-back { background: #F3F4F6; color: #374151; border: 1px solid #D1D5DB; padding: 11px; font-size: 0.9rem; border-radius: 8px; width: 100%; margin-top: 10px; cursor: pointer; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -126,87 +137,122 @@
     <div class="subtitle">選ぶだけ・下書きAIでお互い納得の家事分担</div>
   </header>
 
-  <!-- 冒頭の案内カード -->
-  <div class="intro-card">
-    <div class="intro-title">💡 はじめに：このツールの使い方</div>
-    このツールは相手に分担を押し付けるためのものではなく、<strong>「AIに下書き作らせてみたんだけど、どう思う？」と二人で笑顔で話し合うためのたたき台ツール</strong>です。まずは気楽にAIに下書きを作らせて、二人で画面を見ながら微調整してみましょう！
+  <!-- 入力画面 (INPUT VIEW) -->
+  <div id="inputView">
+    <!-- 冒頭の案内カード -->
+    <div class="intro-card">
+      <div class="intro-title">💡 はじめに：このツールの使い方</div>
+      このツールは相手に分担を押し付けるためのものではなく、<strong>「AIに下書き作らせてみたんだけど、どう思う？」と二人で笑顔で話し合うためのたたき台ツール</strong>です。まずは気楽にAIに下書きを作らせて、二人で画面を見ながら微調整してみましょう！
+    </div>
+
+    <!-- ワンタップ保存・復元バー（ログイン不要） -->
+    <div class="storage-bar">
+      <button class="btn-storage" onclick="saveToLocalStorage()">💾 今の状態をスマホに保存</button>
+      <button class="btn-storage" onclick="loadFromLocalStorage()">📂 前回の保存データを読み込む</button>
+    </div>
+
+    <!-- AI設定パネル -->
+    <div class="ai-box">
+      <div class="ai-box-title">🤖 AIにおまかせ下書き</div>
+      
+      <div class="form-group">
+        <div class="form-label">
+          <span>希望比率（夫 : 妻）</span>
+          <span class="ratio-badge" id="ratioLabel">夫 50% : 妻 50%</span>
+        </div>
+        <div class="slider-container">
+          <span style="font-size:0.75rem;">0:100</span>
+          <input type="range" id="ratioSlider" min="0" max="100" value="50" oninput="updateRatioLabel()">
+          <span style="font-size:0.75rem;">100:0</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-label"><span>夫の苦手・NGな家事</span></div>
+        <input type="text" id="husbandNg" class="input-text" placeholder="例：料理全般、アイロンがけ、裁縫">
+      </div>
+
+      <div class="form-group">
+        <div class="form-label"><span>妻の苦手・NGな家事</span></div>
+        <input type="text" id="wifeNg" class="input-text" placeholder="例：車の運転、高い所の掃除、高圧洗浄">
+      </div>
+
+      <button class="btn-ai" onclick="applyAiDraft()">この条件でAIに自動入力させる</button>
+    </div>
+
+    <!-- 検索窓 -->
+    <div class="search-box">
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 家事名で検索（例: ゴミ、料理、干す）..." oninput="filterTasks()">
+    </div>
+
+    <!-- 基本家事アコーディオン -->
+    <div id="accordionContainer"></div>
+
+    <!-- 最下部：育児追加オプション -->
+    <div class="childcare-option-card">
+      <label class="childcare-header" for="childcareToggle">
+        <div class="childcare-title">
+          <span>👶 育児・お子様に関する項目を追加する</span>
+        </div>
+        <input type="checkbox" id="childcareToggle" class="checkbox-lg" onchange="toggleChildcareSection()">
+      </label>
+
+      <div id="stageSelector" class="stage-selector">
+        <span style="font-size:0.8rem; font-weight:bold; width:100%; color:#64748B;">該当する段階を選択（複数可）：</span>
+        <label class="stage-label">
+          <input type="checkbox" id="stageNursery" checked onchange="updateChildcareTasks()"> 保育園・幼稚園
+        </label>
+        <label class="stage-label">
+          <input type="checkbox" id="stageSchool" checked onchange="updateChildcareTasks()"> 小学校
+        </label>
+      </div>
+    </div>
+
+    <!-- 育児用アコーディオン -->
+    <div id="childcareAccordionContainer"></div>
   </div>
 
-  <!-- ワンタップ保存・復元バー（ログイン不要） -->
-  <div class="storage-bar">
-    <button class="btn-storage" onclick="saveToLocalStorage()">💾 今の状態をスマホに保存</button>
-    <button class="btn-storage" onclick="loadFromLocalStorage()">📂 前回の保存データを読み込む</button>
-  </div>
-
-  <!-- AI設定パネル -->
-  <div class="ai-box">
-    <div class="ai-box-title">🤖 AIにおまかせ下書き</div>
+  <!-- 結果画面 (RESULT VIEW) -->
+  <div id="resultView">
+    <button class="btn-back" onclick="showInputView()" style="margin-bottom: 12px;">← 条件や担当を変更する</button>
     
-    <div class="form-group">
-      <div class="form-label">
-        <span>希望比率（夫 : 妻）</span>
-        <span class="ratio-badge" id="ratioLabel">夫 50% : 妻 50%</span>
+    <div class="result-box">
+      <div class="result-title">📋 家事分担シート</div>
+      
+      <!-- 結果画面の比率表示バー -->
+      <div class="ratio-bar-container" style="margin-bottom: 16px;">
+        <div class="ratio-labels">
+          <span class="label-husband">夫 <span id="resHusbandPct">0%</span></span>
+          <span class="label-wife">妻 <span id="resWifePct">0%</span></span>
+        </div>
+        <div class="progress-bar">
+          <div id="resProgressHusband" class="progress-husband" style="width: 50%;"></div>
+          <div id="resProgressWife" class="progress-wife" style="width: 50%;"></div>
+        </div>
+        <p class="disclaimer" style="margin-top: 6px;">※件数ベースの目安です。実際の負荷感に応じた対話の参考にどうぞ</p>
       </div>
-      <div class="slider-container">
-        <span style="font-size:0.75rem;">0:100</span>
-        <input type="range" id="ratioSlider" min="0" max="100" value="50" oninput="updateRatioLabel()">
-        <span style="font-size:0.75rem;">100:0</span>
-      </div>
-    </div>
 
-    <div class="form-group">
-      <div class="form-label"><span>夫の苦手・NGな家事</span></div>
-      <input type="text" id="husbandNg" class="input-text" placeholder="例：料理全般、アイロンがけ、裁縫">
-    </div>
-
-    <div class="form-group">
-      <div class="form-label"><span>妻の苦手・NGな家事</span></div>
-      <input type="text" id="wifeNg" class="input-text" placeholder="例：車の運転、高い所の掃除、高圧洗浄">
-    </div>
-
-    <button class="btn-ai" onclick="applyAiDraft()">この条件でAIに自動入力させる</button>
-  </div>
-
-  <!-- 検索窓 -->
-  <div class="search-box">
-    <input type="text" id="searchInput" class="search-input" placeholder="🔍 家事名で検索（例: ゴミ、料理、干す）..." oninput="filterTasks()">
-  </div>
-
-  <!-- 基本家事アコーディオン -->
-  <div id="accordionContainer"></div>
-
-  <!-- 最下部：育児追加オプション -->
-  <div class="childcare-option-card">
-    <label class="childcare-header" for="childcareToggle">
-      <div class="childcare-title">
-        <span>👶 育児・お子様に関する項目を追加する</span>
-      </div>
-      <input type="checkbox" id="childcareToggle" class="checkbox-lg" onchange="toggleChildcareSection()">
-    </label>
-
-    <div id="stageSelector" class="stage-selector">
-      <span style="font-size:0.8rem; font-weight:bold; width:100%; color:#64748B;">該当する段階を選択（複数可）：</span>
-      <label class="stage-label">
-        <input type="checkbox" id="stageNursery" checked onchange="updateChildcareTasks()"> 保育園・幼稚園
-      </label>
-      <label class="stage-label">
-        <input type="checkbox" id="stageSchool" checked onchange="updateChildcareTasks()"> 小学校
-      </label>
-    </div>
-  </div>
-
-  <!-- 育児用アコーディオン -->
-  <div id="childcareAccordionContainer"></div>
-
-  <!-- 決定ボタン＆結果表示 -->
-  <div class="action-area">
-    <button class="btn-submit" onclick="generateResult()">この内容で分担シートを表示する</button>
-
-    <div id="resultBox" class="result-box">
-      <div class="result-title">📋 分担シート</div>
       <div id="resultContent"></div>
-      <button class="btn-copy" onclick="copyResultText()">共有テキストをコピーする</button>
+      
+      <button class="btn-copy" onclick="copyResultText()">📋 共有テキストをコピーする</button>
+      <button class="btn-back" onclick="showInputView()">← 条件や担当を変更する</button>
     </div>
+  </div>
+
+  <!-- 固定フッター (Sticky Footer) -->
+  <div class="sticky-footer" id="stickyFooter">
+    <div class="ratio-bar-container">
+      <div class="ratio-labels">
+        <span class="label-husband">夫 <span id="ftHusbandPct">0%</span></span>
+        <span class="label-wife">妻 <span id="ftWifePct">0%</span></span>
+      </div>
+      <div class="progress-bar">
+        <div id="ftProgressHusband" class="progress-husband" style="width: 0%;"></div>
+        <div id="ftProgressWife" class="progress-wife" style="width: 0%;"></div>
+      </div>
+    </div>
+    <p class="disclaimer">※件数ベースの目安です。実際の負荷感に応じた対話の参考にどうぞ</p>
+    <button class="btn-submit-footer" onclick="showResultView()">この内容で分担シートを表示する（次へ）→</button>
   </div>
 
   <script>
@@ -236,10 +282,10 @@
           {
             id: "g3", name: "片付け・キッチン維持",
             tasks: [
-              { id: "t9", name: "食器洗い・食洗機へのセット", tags: "水回り" },
-              { id: "t10", name: "食洗機・乾燥後の食器戻し", tags: "水回り" },
-              { id: "t11", name: "排水口ゴミ受け清掃・生ゴミ処理", tags: "水回り" },
-              { id: "t12", name: "コンロ・調理場・台所の拭き上げ", tags: "掃除" }
+              { id: "t9", name: "食器洗い・食洗機へのセット", tags: "水回り 料理" },
+              { id: "t10", name: "食洗機・乾燥後の食器戻し", tags: "水回り 料理" },
+              { id: "t11", name: "排水口ゴミ受け清掃・生ゴミ処理", tags: "水回り 料理" },
+              { id: "t12", name: "コンロ・調理場・台所の拭き上げ", tags: "掃除 料理" }
             ]
           }
         ]
@@ -259,9 +305,9 @@
           {
             id: "g5", name: "水回りの掃除",
             tasks: [
-              { id: "t16", name: "お風呂掃除・防カビ対策", tags: "水回り" },
-              { id: "t17", name: "トイレ掃除・ノズル清掃", tags: "水回り" },
-              { id: "t18", name: "洗面台の掃除・鏡拭き", tags: "水回り" }
+              { id: "t16", name: "お風呂掃除・防カビ対策", tags: "水回り 掃除" },
+              { id: "t17", name: "トイレ掃除・ノズル清掃", tags: "水回り 掃除" },
+              { id: "t18", name: "洗面台の掃除・鏡拭き", tags: "水回り 掃除" }
             ]
           },
           {
@@ -293,10 +339,10 @@
           {
             id: "g8", name: "特別・季節の衣類ケア",
             tasks: [
-              { id: "t29", name: "アイロンがけ", tags: "アイロン" },
+              { id: "t29", name: "アイロンがけ", tags: "アイロン 洗濯" },
               { id: "t30", name: "クリーニングの出し・受け取り", tags: "洗濯" },
               { id: "t31", name: "シーツ・布団カバーの洗濯・交換", tags: "洗濯" },
-              { id: "t32", name: "衣替え・サイズアウト服の整理", tags: "服" }
+              { id: "t32", name: "衣替え・サイズアウト服の整理", tags: "服 洗濯" }
             ]
           }
         ]
@@ -318,7 +364,7 @@
             tasks: [
               { id: "t36", name: "家計管理・生活費の清算", tags: "手続き" },
               { id: "t37", name: "行政手続き・契約・更新（保険・ネット等）", tags: "手続き" },
-              { id: "t38", name: "車の給油・洗車・点検手配", tags: "車" }
+              { id: "t38", name: "車の給油・洗車・点検手配", tags: "車 運転" }
             ]
           }
         ]
@@ -333,8 +379,8 @@
             tasks: [
               { id: "t39", name: "登園前の準備・服の着替え補助", tags: "育児" },
               { id: "t40", name: "連絡帳記入・体温計測・アプリ入力", tags: "育児" },
-              { id: "t41", name: "保育園・幼稚園への「送り」", tags: "育児" },
-              { id: "t42", name: "保育園・幼稚園からの「お迎え」", tags: "育児" },
+              { id: "t41", name: "保育園・幼稚園への「送り」", tags: "育児 送迎 運転" },
+              { id: "t42", name: "保育園・幼稚園からの「お迎え」", tags: "育児 送迎 運転" },
               { id: "t43", name: "持ち帰ったエプロン・タオル・服の出し処理", tags: "育児" }
             ]
           },
@@ -345,7 +391,7 @@
               { id: "t44", name: "宿題チェック・音読確認・連絡帳へのサイン", tags: "育児" },
               { id: "t45", name: "翌日の時間割チェック・持ち物準備", tags: "育児" },
               { id: "t46", name: "学校からのプリント・おたよりの確認・押印", tags: "育児" },
-              { id: "t47", name: "習い事の送迎・スケジュール管理", tags: "育児" },
+              { id: "t47", name: "習い事の送迎・スケジュール管理", tags: "育児 送迎 運転" },
               { id: "t48", name: "保護者会・PTA・個人面談への出席", tags: "育児" }
             ]
           },
@@ -362,6 +408,14 @@
         ]
       }
     ];
+
+    // 連想NG辞書
+    const synMap = {
+      '料理': ['料理', '調理', '献立', '食材', '配膳', '残菜', 'キッチン', '食洗機', '食器', '台所', 'お弁当', '水筒'],
+      '運転': ['運転', '車', '送迎', '給油', '洗車'],
+      '掃除': ['掃除', 'ゴミ', '片付け', 'シンク', 'トイレ', '風呂', 'モップ', 'ワイパー', '排水口', '洗面', 'ノズル', '鏡'],
+      '洗濯': ['洗濯', '畳む', '干す', 'アイロン', '乾燥機', 'シーツ', '服', 'クローゼット']
+    };
 
     let assignments = {};
 
@@ -501,7 +555,27 @@
       updateUI();
     }
 
+    function getActiveTasks() {
+      const isChildcareEnabled = document.getElementById('childcareToggle').checked;
+      const isNursery = document.getElementById('stageNursery').checked;
+      const isSchool = document.getElementById('stageSchool').checked;
+
+      const active = [];
+      choreData.forEach(cat => {
+        if (cat.isChildcare && !isChildcareEnabled) return;
+        cat.groups.forEach(group => {
+          if (cat.isChildcare) {
+            if (group.stage === 'nursery' && !isNursery) return;
+            if (group.stage === 'school' && !isSchool) return;
+          }
+          group.tasks.forEach(t => active.push(t));
+        });
+      });
+      return active;
+    }
+
     function updateUI() {
+      // 1. 各ボタンの表示更新
       choreData.forEach(cat => {
         cat.groups.forEach(group => {
           group.tasks.forEach(task => {
@@ -524,49 +598,95 @@
           });
         });
       });
-    }
 
-    function applyAiDraft() {
-      const husbandRatio = parseInt(document.getElementById('ratioSlider').value);
-      const husbandNgText = document.getElementById('husbandNg').value;
-      const wifeNgText = document.getElementById('wifeNg').value;
+      // 2. 比率バー（フッター＆結果画面）のリアルタイム更新
+      let hCount = 0;
+      let wCount = 0;
+      const activeTasks = getActiveTasks();
 
-      const isChildcareEnabled = document.getElementById('childcareToggle').checked;
-      const isNursery = document.getElementById('stageNursery').checked;
-      const isSchool = document.getElementById('stageSchool').checked;
-
-      choreData.forEach(cat => {
-        if (cat.isChildcare && !isChildcareEnabled) return;
-
-        cat.groups.forEach(group => {
-          if (cat.isChildcare) {
-            if (group.stage === 'nursery' && !isNursery) return;
-            if (group.stage === 'school' && !isSchool) return;
-          }
-
-          group.tasks.forEach(task => {
-            const isHusbandNg = isNgMatch(task.name + task.tags, husbandNgText);
-            const isWifeNg = isNgMatch(task.name + task.tags, wifeNgText);
-
-            if (isHusbandNg && !isWifeNg) {
-              assignments[task.id] = '妻';
-            } else if (isWifeNg && !isHusbandNg) {
-              assignments[task.id] = '夫';
-            } else {
-              const rand = Math.random() * 100;
-              assignments[task.id] = (rand < husbandRatio) ? '夫' : '妻';
-            }
-          });
-        });
+      activeTasks.forEach(task => {
+        if (assignments[task.id] === '夫') hCount++;
+        if (assignments[task.id] === '妻') wCount++;
       });
 
-      updateUI();
+      const total = hCount + wCount;
+      let hPct = 0, wPct = 0;
+      if (total > 0) {
+        hPct = Math.round((hCount / total) * 100);
+        wPct = 100 - hPct;
+      }
+
+      document.getElementById('ftHusbandPct').innerText = hPct + '%';
+      document.getElementById('ftWifePct').innerText = wPct + '%';
+      document.getElementById('ftProgressHusband').style.width = hPct + '%';
+      document.getElementById('ftProgressWife').style.width = wPct + '%';
+
+      document.getElementById('resHusbandPct').innerText = hPct + '%';
+      document.getElementById('resWifePct').innerText = wPct + '%';
+      document.getElementById('resProgressHusband').style.width = hPct + '%';
+      document.getElementById('resProgressWife').style.width = wPct + '%';
     }
 
     function isNgMatch(text, ngInput) {
       if (!ngInput || !ngInput.trim()) return false;
       const keywords = ngInput.split(/[,、\s]+/);
-      return keywords.some(kw => kw.length > 0 && text.includes(kw));
+      return keywords.some(kw => {
+        if (!kw) return false;
+        if (text.includes(kw)) return true;
+        // 連想語チェック
+        for (const [key, synonyms] of Object.entries(synMap)) {
+          if (kw.includes(key)) {
+            if (synonyms.some(syn => text.includes(syn))) return true;
+          }
+        }
+        return false;
+      });
+    }
+
+    // AI自動割り振り（正比例＆連想NG判定ロジック）
+    function applyAiDraft() {
+      const husbandRatio = parseInt(document.getElementById('ratioSlider').value); // 0〜100
+      const husbandNgText = document.getElementById('husbandNg').value;
+      const wifeNgText = document.getElementById('wifeNg').value;
+
+      const activeTasks = getActiveTasks();
+      assignments = {};
+      const freeTasks = [];
+
+      // 1. まずNG判定を適用
+      activeTasks.forEach(task => {
+        const fullText = task.name + " " + task.tags;
+        const isHusbandNg = isNgMatch(fullText, husbandNgText);
+        const isWifeNg = isNgMatch(fullText, wifeNgText);
+
+        if (isHusbandNg && !isWifeNg) {
+          assignments[task.id] = '妻';
+        } else if (isWifeNg && !isHusbandNg) {
+          assignments[task.id] = '夫';
+        } else if (isHusbandNg && isWifeNg) {
+          assignments[task.id] = 'その他';
+        } else {
+          freeTasks.push(task);
+        }
+      });
+
+      // 2. 残りのフリータスクを希望比率（husbandRatio%）通りに分散して割り振る
+      const totalFree = freeTasks.length;
+      const targetHusbandCount = Math.round(totalFree * (husbandRatio / 100));
+
+      freeTasks.forEach((task, index) => {
+        if (targetHusbandCount === 0) {
+          assignments[task.id] = '妻';
+        } else if (targetHusbandCount === totalFree) {
+          assignments[task.id] = '夫';
+        } else {
+          // 均等間隔で分散配置するロジック
+          const assignToHusband = Math.floor((index * targetHusbandCount) / totalFree) !== Math.floor(((index + 1) * targetHusbandCount) / totalFree);
+          assignments[task.id] = assignToHusband ? '夫' : '妻';
+        }
+      });
+
+      updateUI();
     }
 
     function filterTasks() {
@@ -657,9 +777,25 @@
       }
     }
 
+    // 画面切り替え：結果表示
+    function showResultView() {
+      generateResult();
+      document.getElementById('inputView').style.display = 'none';
+      document.getElementById('resultView').style.display = 'block';
+      document.getElementById('stickyFooter').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+
+    // 画面切り替え：入力画面に戻る
+    function showInputView() {
+      document.getElementById('inputView').style.display = 'block';
+      document.getElementById('resultView').style.display = 'none';
+      document.getElementById('stickyFooter').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
     // 結果表示の生成
     function generateResult() {
-      const resultBox = document.getElementById('resultBox');
       const resultContent = document.getElementById('resultContent');
       const isChildcareEnabled = document.getElementById('childcareToggle').checked;
       const isNursery = document.getElementById('stageNursery').checked;
@@ -728,11 +864,9 @@
       }
 
       resultContent.innerHTML = html;
-      resultBox.style.display = 'block';
-      resultBox.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // 視認性を重視したLINE共有用テキストの生成
+    // LINE共有用テキストの生成
     function copyResultText() {
       const isChildcareEnabled = document.getElementById('childcareToggle').checked;
       const isNursery = document.getElementById('stageNursery').checked;
