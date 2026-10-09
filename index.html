@@ -18,7 +18,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #F9FAFB; color: var(--text); padding: 16px; max-width: 600px; margin: 0 auto; padding-bottom: 150px; }
+    body { background-color: #F9FAFB; color: var(--text); padding: 16px; max-width: 600px; margin: 0 auto; padding-bottom: 160px; }
 
     header { text-align: center; margin-bottom: 12px; }
     h1 { font-size: 1.4rem; color: var(--primary); margin-bottom: 2px; }
@@ -39,30 +39,39 @@
     .input-text { width: 100%; padding: 8px 12px; border: 1px solid #D1D5DB; border-radius: 6px; font-size: 0.85rem; }
     .btn-ai { background: var(--primary); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: bold; width: 100%; font-size: 0.9rem; cursor: pointer; }
 
-    /* 育児モジュール設定 */
-    .childcare-optin-box { background: #FFFBEB; border: 1px solid #FCD34D; border-radius: 10px; padding: 12px; margin-bottom: 16px; }
-    .optin-header { display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
-    .optin-title { font-weight: bold; font-size: 0.9rem; color: #92400E; display: flex; align-items: center; gap: 6px; }
-    .stage-selector { display: flex; gap: 6px; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #FDE68A; }
-    .btn-stage { flex: 1; padding: 6px; font-size: 0.78rem; border-radius: 6px; border: 1px solid #FCD34D; background: white; color: #78350F; font-weight: bold; cursor: pointer; }
-    .btn-stage.active { background: #F59E0B; color: white; border-color: #D97706; }
-
     /* 検索バー */
     .search-box { width: 100%; padding: 10px 14px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 0.9rem; margin-bottom: 16px; background: white; }
 
     /* アコーディオン・タスクリスト */
     .category-group { background: white; border-radius: 10px; margin-bottom: 12px; border: 1px solid #E5E7EB; overflow: hidden; }
-    .category-header { background: #F8FAFC; padding: 12px 14px; font-weight: bold; font-size: 0.95rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .category-header { background: #F8FAFC; padding: 10px 12px; font-weight: bold; font-size: 0.92rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .category-title-wrap { display: flex; align-items: center; gap: 8px; flex: 1; }
+    
     .task-list { padding: 8px 12px; }
-    .task-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #F1F5F9; }
+    .subcat-header { font-size: 0.8rem; font-weight: bold; color: #6366F1; background: #EEF2FF; padding: 4px 8px; border-radius: 4px; margin: 10px 0 4px 0; }
+    .subcat-header:first-child { margin-top: 2px; }
+    
+    .task-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #F1F5F9; }
     .task-item:last-child { border-bottom: none; }
-    .task-name { font-size: 0.88rem; font-weight: 500; }
+    .task-name { font-size: 0.85rem; font-weight: 500; }
     
     .segmented-control { display: flex; background: #F1F5F9; border-radius: 6px; padding: 2px; gap: 2px; }
-    .segmented-btn { border: none; background: transparent; padding: 6px 10px; font-size: 0.78rem; font-weight: bold; border-radius: 4px; cursor: pointer; color: #64748B; transition: all 0.2s; }
+    .segmented-btn { border: none; background: transparent; padding: 5px 8px; font-size: 0.75rem; font-weight: bold; border-radius: 4px; cursor: pointer; color: #64748B; transition: all 0.2s; }
     .segmented-btn.active-wife { background: var(--wife-bg); color: var(--wife-color); }
     .segmented-btn.active-husband { background: var(--husband-bg); color: var(--husband-color); }
     .segmented-btn.active-other { background: var(--other-bg); color: var(--other-color); }
+
+    /* 大括り一括トグル（左側配置） */
+    .cat-segmented-control { display: flex; background: #E2E8F0; border-radius: 6px; padding: 2px; gap: 2px; flex-shrink: 0; }
+    .cat-btn { border: none; background: transparent; padding: 4px 6px; font-size: 0.72rem; font-weight: bold; border-radius: 4px; cursor: pointer; color: #475569; }
+
+    /* 育児モジュール設定（一番下に配置） */
+    .childcare-optin-box { background: #FFFBEB; border: 1px solid #FCD34D; border-radius: 10px; padding: 12px; margin-top: 16px; margin-bottom: 16px; }
+    .optin-header { display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+    .optin-title { font-weight: bold; font-size: 0.9rem; color: #92400E; display: flex; align-items: center; gap: 6px; }
+    .stage-selector { display: flex; gap: 6px; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #FDE68A; }
+    .btn-stage { flex: 1; padding: 6px; font-size: 0.78rem; border-radius: 6px; border: 1px solid #FCD34D; background: white; color: #78350F; font-weight: bold; cursor: pointer; }
+    .btn-stage.active { background: #F59E0B; color: white; border-color: #D97706; }
 
     /* 固定フッター */
     .sticky-footer { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #E5E7EB; box-shadow: 0 -4px 16px rgba(0,0,0,0.12); padding: 10px 16px 16px; z-index: 100; max-width: 600px; margin: 0 auto; }
@@ -129,7 +138,12 @@
       <button class="btn-ai" onclick="applyAiDraft()">この条件でAIに自動入力させる</button>
     </div>
 
-    <!-- 育児オプトイン設定 -->
+    <input type="text" class="search-box" id="search-input" placeholder="🔍 家事名で検索 (例: 料理、ゴミ、宿題) ..." oninput="filterTasks(this.value)">
+
+    <!-- 大括りアコーディオン群 -->
+    <div id="task-categories"></div>
+
+    <!-- 育児オプトイン設定（一番下に配置） -->
     <div class="childcare-optin-box">
       <div class="optin-header" onclick="toggleChildcareOptin()">
         <span class="optin-title">
@@ -144,9 +158,6 @@
       </div>
     </div>
 
-    <input type="text" class="search-box" id="search-input" placeholder="🔍 家事名で検索 (例: 料理、ゴミ、宿題) ..." oninput="filterTasks(this.value)">
-
-    <div id="task-categories"></div>
   </div>
 
   <!-- 結果画面 (RESULT VIEW) -->
@@ -203,46 +214,66 @@
   </div>
 
   <script>
-    // 充実した家事マスターデータ（細分化）
+    // 小括り（サブカテゴリ）入りの詳細データ構造
     const baseCategories = [
       {
         category: "🍳 食事・キッチン",
-        tasks: [
-          "献立作成・冷蔵庫チェック",
-          "食材の買い出し・受取",
-          "下ごしらえ・調理",
-          "配膳・食卓のセッティング",
-          "食後の拭き上げ・片付け",
-          "残菜処理・保存容器詰め",
-          "食器洗い・食洗機稼働",
-          "シンク・コンロ・換気扇掃除"
+        subcategories: [
+          {
+            name: "🔹 準備・買い出し",
+            tasks: ["献立作成・冷蔵庫チェック", "食材の買い出し・受取"]
+          },
+          {
+            name: "🔹 調理・食卓",
+            tasks: ["下ごしらえ・調理", "配膳・食卓のセッティング"]
+          },
+          {
+            name: "🔹 後片付け・清掃",
+            tasks: ["食後の拭き上げ・片付け", "残菜処理・保存容器詰め", "食器洗い・食洗機稼働", "シンク・コンロ・換気扇掃除"]
+          }
         ]
       },
       {
         category: "🧹 掃除・片付け",
-        tasks: [
-          "リビングの片付け・掃除機がけ",
-          "床のモップ・ワイパーがけ",
-          "風呂掃除・排水口の髪の毛取り",
-          "トイレ掃除・トイレットペーパー補充",
-          "洗面台の掃除・鏡拭き",
-          "ゴミまとめ・集積所へのゴミ出し",
-          "部屋の換気・空気清浄機の手入れ"
+        subcategories: [
+          {
+            name: "🔹 居間・床掃除",
+            tasks: ["リビングの片付け・掃除機がけ", "床のモップ・ワイパーがけ"]
+          },
+          {
+            name: "🔹 水回り掃除",
+            tasks: ["風呂掃除・排水口の髪の毛取り", "トイレ掃除・トイレットペーパー補充", "洗面台の掃除・鏡拭き"]
+          },
+          {
+            name: "🔹 ごみ対応・換気",
+            tasks: ["ゴミまとめ・集積所へのゴミ出し", "部屋の換気・空気清浄機の手入れ"]
+          }
         ]
       },
       {
         category: "🧺 洗濯・衣類",
-        tasks: ["洗濯機まわし・洗剤補充", "洗濯物を干す・乾燥機セット", "取り込み・ハンガー外し", "畳む・各自の収納場所へ移動", "アイロンがけ・シワ伸ばし", "靴洗い・靴磨き"]
+        subcategories: [
+          {
+            name: "🔹 洗濯・乾燥",
+            tasks: ["洗濯機まわし・洗剤補充", "洗濯物を干す・乾燥機セット"]
+          },
+          {
+            name: "🔹 畳む・収納",
+            tasks: ["取り込み・ハンガー外し", "畳む・各自の収納場所へ移動", "アイロンがけ・シワ伸ばし", "靴洗い・靴磨き"]
+          }
+        ]
       },
       {
-        category: "📄 名もなき家事・日用品・管理",
-        tasks: [
-          "日用品の在庫管理・注文",
-          "郵便物・チラシのチェックと仕分け",
-          "振り込み・公共料金の支払い対応",
-          "地域・マンション役員対応・回覧板",
-          "季節家電の出し入れ・手入れ",
-          "ゴミ袋・ティッシュ箱の補填"
+        category: "📄 名もなき家事・日用品",
+        subcategories: [
+          {
+            name: "🔹 日用品・補充",
+            tasks: ["日用品の在庫管理・注文", "ゴミ袋・ティッシュ箱の補填"]
+          },
+          {
+            name: "🔹 事務・手続き・管理",
+            tasks: ["郵便物・チラシのチェックと仕分け", "振り込み・公共料金の支払い対応", "地域・マンション役員対応・回覧板", "季節家電の出し入れ・手入れ"]
+          }
         ]
       }
     ];
@@ -250,21 +281,24 @@
     // 育児タスク（発達段階別）
     const childcareTasks = {
       nursery: [
-        "朝の着替え・体温測定・連絡帳記入",
-        "保育園・幼稚園の準備・持ち物チェック",
-        "登園・お迎えの送迎",
-        "帰宅後の手洗い・うがい・おやつ対応",
-        "風呂入れ・身体洗い",
-        "ドライヤー・スキンケア・爪切り",
-        "寝かしつけ・絵本読み聞かせ"
+        {
+          name: "🔹 朝の準備・送迎",
+          tasks: ["朝の着替え・体温測定・連絡帳記入", "保育園・幼稚園の準備・持ち物チェック", "登園・お迎えの送迎"]
+        },
+        {
+          name: "🔹 夜のお世話・ケア",
+          tasks: ["帰宅後の手洗い・おやつ対応", "風呂入れ・身体洗い", "ドライヤー・スキンケア・爪切り", "寝かしつけ・絵本読み聞かせ"]
+        }
       ],
       elementary: [
-        "朝の起こし・着替え・朝食確認",
-        "学校の持ち物・宿題のチェック・丸付け",
-        "習い事の送迎・付き添い",
-        "PTA・保護者会・授業参観への参加",
-        "風呂入れ案内・スケジュール管理",
-        "就寝声かけ・明日の時間割確認"
+        {
+          name: "🔹 朝・学校対応",
+          tasks: ["朝の起こし・着替え・朝食確認", "学校の持ち物・宿題のチェック・丸付け", "PTA・保護者会・授業参観への参加"]
+        },
+        {
+          name: "🔹 放課後・夜のケア",
+          tasks: ["習い事の送迎・付き添い", "風呂入れ案内・スケジュール管理", "就寝声かけ・明日の時間割確認"]
+        }
       ]
     };
 
@@ -291,10 +325,20 @@
         const stageName = childcareStage === 'nursery' ? '保育園・幼稚園' : '小学生';
         data.push({
           category: `👶 育児（${stageName}）`,
-          tasks: childcareTasks[childcareStage]
+          subcategories: childcareTasks[childcareStage]
         });
       }
       return data;
+    }
+
+    function getAllFlatTasks() {
+      const tasks = [];
+      getActiveTaskData().forEach(c => {
+        c.subcategories.forEach(s => {
+          s.tasks.forEach(t => tasks.push(t));
+        });
+      });
+      return tasks;
     }
 
     function renderTasks() {
@@ -306,10 +350,22 @@
         const catGroup = document.createElement('div');
         catGroup.className = 'category-group';
         
+        // ヘッダー（左側に一括トグル配置）
         const header = document.createElement('div');
         header.className = 'category-header';
-        header.innerHTML = `<span>${cat.category}</span> <span>▼</span>`;
-        header.onclick = () => {
+        header.innerHTML = `
+          <div class="category-title-wrap">
+            <div class="cat-segmented-control" onclick="event.stopPropagation()">
+              <button class="cat-btn" onclick="bulkAssignCategory('${cat.category}', '妻')">妻</button>
+              <button class="cat-btn" onclick="bulkAssignCategory('${cat.category}', '夫')">夫</button>
+              <button class="cat-btn" onclick="bulkAssignCategory('${cat.category}', '他')">他</button>
+            </div>
+            <span>${cat.category}</span>
+          </div>
+          <span>▼</span>
+        `;
+        header.onclick = (e) => {
+          if (e.target.tagName === 'BUTTON') return;
           const list = catGroup.querySelector('.task-list');
           list.style.display = list.style.display === 'none' ? 'block' : 'none';
         };
@@ -317,34 +373,56 @@
         const list = document.createElement('div');
         list.className = 'task-list';
 
-        cat.tasks.forEach((tName) => {
-          const item = document.createElement('div');
-          item.className = 'task-item';
-          item.setAttribute('data-task', tName);
+        // 小括り（サブカテゴリ）ごとに展開
+        cat.subcategories.forEach(sub => {
+          const subHeader = document.createElement('div');
+          subHeader.className = 'subcat-header';
+          subHeader.textContent = sub.name;
+          list.appendChild(subHeader);
 
-          const nameSpan = document.createElement('span');
-          nameSpan.className = 'task-name';
-          nameSpan.textContent = tName;
+          sub.tasks.forEach(tName => {
+            const item = document.createElement('div');
+            item.className = 'task-item';
+            item.setAttribute('data-task', tName);
 
-          const currentSel = selections[tName] || 'none';
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'task-name';
+            nameSpan.textContent = tName;
 
-          const control = document.createElement('div');
-          control.className = 'segmented-control';
-          control.innerHTML = `
-            <button class="segmented-btn ${currentSel === '妻' ? 'active-wife' : ''}" onclick="setAssign('${tName}', '妻')">妻</button>
-            <button class="segmented-btn ${currentSel === '夫' ? 'active-husband' : ''}" onclick="setAssign('${tName}', '夫')">夫</button>
-            <button class="segmented-btn ${currentSel === '他' ? 'active-other' : ''}" onclick="setAssign('${tName}', '他')">他</button>
-          `;
+            const currentSel = selections[tName] || 'none';
 
-          item.appendChild(nameSpan);
-          item.appendChild(control);
-          list.appendChild(item);
+            const control = document.createElement('div');
+            control.className = 'segmented-control';
+            control.innerHTML = `
+              <button class="segmented-btn ${currentSel === '妻' ? 'active-wife' : ''}" onclick="setAssign('${tName}', '妻')">妻</button>
+              <button class="segmented-btn ${currentSel === '夫' ? 'active-husband' : ''}" onclick="setAssign('${tName}', '夫')">夫</button>
+              <button class="segmented-btn ${currentSel === '他' ? 'active-other' : ''}" onclick="setAssign('${tName}', '他')">他</button>
+            `;
+
+            item.appendChild(nameSpan);
+            item.appendChild(control);
+            list.appendChild(item);
+          });
         });
 
         catGroup.appendChild(header);
         catGroup.appendChild(list);
         container.appendChild(catGroup);
       });
+    }
+
+    function bulkAssignCategory(catName, role) {
+      const currentData = getActiveTaskData();
+      const targetCat = currentData.find(c => c.category === catName);
+      if (targetCat) {
+        targetCat.subcategories.forEach(s => {
+          s.tasks.forEach(tName => {
+            selections[tName] = role;
+          });
+        });
+      }
+      renderTasks();
+      calculateRatio();
     }
 
     function setAssign(taskName, role) {
@@ -381,9 +459,7 @@
     function calculateRatio() {
       let hCount = 0;
       let wCount = 0;
-      const currentData = getActiveTaskData();
-      const activeTasks = [];
-      currentData.forEach(c => c.tasks.forEach(t => activeTasks.push(t)));
+      const activeTasks = getAllFlatTasks();
 
       activeTasks.forEach(tName => {
         const role = selections[tName];
@@ -426,20 +502,16 @@
       return false;
     }
 
-    // AI自動割り振り（計算バグ修正＆分散配置）
     function applyAiDraft() {
-      const hSlider = parseInt(document.getElementById('ai-ratio-slider').value); // 0 〜 100
+      const hSlider = parseInt(document.getElementById('ai-ratio-slider').value);
       const hNg = document.getElementById('husband-ng').value.trim();
       const wNg = document.getElementById('wife-ng').value.trim();
 
-      const currentData = getActiveTaskData();
-      const allTasks = [];
-      currentData.forEach(c => c.tasks.forEach(t => allTasks.push(t)));
-
+      const allTasks = getAllFlatTasks();
       selections = {};
       const freeTasks = [];
 
-      // 1. まずNG判定を適用
+      // 1. NG判定
       allTasks.forEach((tName) => {
         const hIsNg = isNgTask(hNg, tName);
         const wIsNg = isNgTask(wNg, tName);
@@ -455,19 +527,16 @@
         }
       });
 
-      // 2. 残りのタスク（freeTasks）を指定された目標割合（hSlider %）に応じて分配
+      // 2. 目標パーセンテージに応じた分配
       const totalFree = freeTasks.length;
       const targetHusbandCount = Math.round(totalFree * (hSlider / 100));
 
-      // 交互に分散配置（偏りを防ぐ）
       freeTasks.forEach((tName, index) => {
-        // インデックスと目標比率に基づく計算
         if (targetHusbandCount === 0) {
           selections[tName] = '妻';
         } else if (targetHusbandCount === totalFree) {
           selections[tName] = '夫';
         } else {
-          // 均等間隔で割り振るロジック
           const assignedToHusband = Math.floor((index * targetHusbandCount) / totalFree) !== Math.floor(((index + 1) * targetHusbandCount) / totalFree);
           selections[tName] = assignedToHusband ? '夫' : '妻';
         }
@@ -518,9 +587,7 @@
       oContainer.innerHTML = '';
 
       let hasH = false, hasW = false, hasO = false;
-      const currentData = getActiveTaskData();
-      const activeTasks = [];
-      currentData.forEach(c => c.tasks.forEach(t => activeTasks.push(t)));
+      const activeTasks = getAllFlatTasks();
 
       activeTasks.forEach((tName) => {
         const role = selections[tName];
@@ -545,9 +612,7 @@
       text += `夫 ${document.getElementById('res-husband-pct').textContent} : 妻 ${document.getElementById('res-wife-pct').textContent}\n\n`;
 
       const hList = [], wList = [], oList = [];
-      const currentData = getActiveTaskData();
-      const activeTasks = [];
-      currentData.forEach(c => c.tasks.forEach(t => activeTasks.push(t)));
+      const activeTasks = getAllFlatTasks();
 
       activeTasks.forEach((tName) => {
         const role = selections[tName];
