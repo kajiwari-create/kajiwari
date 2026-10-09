@@ -8,790 +8,448 @@
     :root {
       --primary: #4F46E5;
       --primary-light: #EEF2FF;
-      --wife-color: #DB2777;
-      --wife-bg: #FCE7F3;
       --husband-color: #2563EB;
       --husband-bg: #DBEAFE;
-      --other-color: #059669;
-      --other-bg: #D1FAE5;
+      --wife-color: #DB2777;
+      --wife-bg: #FCE7F3;
+      --other-color: #4B5563;
+      --other-bg: #F3F4F6;
       --text: #1F2937;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #F9FAFB; color: var(--text); padding: 16px; max-width: 600px; margin: 0 auto; line-height: 1.5; padding-bottom: 40px; }
+    body { background-color: #F9FAFB; color: var(--text); padding: 16px; max-width: 600px; margin: 0 auto; padding-bottom: 150px; }
 
     header { text-align: center; margin-bottom: 12px; }
     h1 { font-size: 1.4rem; color: var(--primary); margin-bottom: 2px; }
     .subtitle { font-size: 0.85rem; color: #6B7280; }
 
-    /* 案内カード */
-    .intro-card { background: #EEF2FF; border: 1px solid #C7D2FE; border-radius: 12px; padding: 12px 14px; margin-bottom: 16px; font-size: 0.83rem; color: #3730A3; }
-    .intro-title { font-weight: bold; font-size: 0.9rem; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
-
     /* 保存・復元ツールバー */
     .storage-bar { display: flex; gap: 8px; margin-bottom: 16px; }
     .btn-storage { flex: 1; padding: 8px; font-size: 0.8rem; font-weight: bold; border-radius: 8px; border: 1px solid #CBD5E1; background: white; color: #475569; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
-    .btn-storage:active { background: #F1F5F9; }
 
     /* AI設定パネル */
     .ai-box { background: white; border: 2px solid #E0E7FF; border-radius: 12px; padding: 14px; margin-bottom: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
     .ai-box-title { font-weight: bold; font-size: 0.95rem; color: var(--primary); margin-bottom: 12px; }
-    
     .form-group { margin-bottom: 12px; }
     .form-label { font-size: 0.85rem; font-weight: bold; color: #374151; display: flex; justify-content: space-between; margin-bottom: 4px; }
-    
     .slider-container { display: flex; align-items: center; gap: 8px; }
     .slider-container input[type="range"] { flex: 1; accent-color: var(--primary); height: 6px; }
     .ratio-badge { font-size: 0.85rem; font-weight: bold; color: var(--primary); min-width: 110px; text-align: right; }
+    .input-text { width: 100%; padding: 8px 12px; border: 1px solid #D1D5DB; border-radius: 6px; font-size: 0.85rem; }
+    .btn-ai { background: var(--primary); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: bold; width: 100%; font-size: 0.9rem; cursor: pointer; }
 
-    .input-text { width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid #D1D5DB; font-size: 0.85rem; }
-    .input-text::placeholder { color: #9CA3AF; }
+    /* 検索バー */
+    .search-box { width: 100%; padding: 10px 14px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 0.9rem; margin-bottom: 16px; background: white; }
 
-    .btn-ai { background: var(--primary); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.9rem; cursor: pointer; width: 100%; margin-top: 4px; }
-    .btn-ai:hover { opacity: 0.9; }
-
-    /* 検索窓 */
-    .search-box { margin-bottom: 16px; }
-    .search-input { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #CBD5E1; font-size: 0.9rem; background: white; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-
-    /* アコーディオンリスト */
-    .cat-block.hidden { display: none; }
-    .category-title { font-size: 1rem; font-weight: bold; margin: 20px 0 8px 4px; color: #334155; border-bottom: 2px solid #E2E8F0; padding-bottom: 4px; }
-    .group-card { background: white; border-radius: 10px; border: 1px solid #E5E7EB; margin-bottom: 10px; overflow: hidden; }
-    
-    .group-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: #FAFAFA; cursor: pointer; user-select: none; }
-    .group-title-area { display: flex; align-items: center; gap: 8px; flex: 1; padding-right: 8px; }
-    .toggle-icon { font-size: 0.75rem; color: #64748B; transition: transform 0.2s; display: inline-block; width: 12px; }
-    .group-card.open .toggle-icon { transform: rotate(180deg); }
-    .group-name { font-weight: bold; font-size: 0.9rem; color: #1E293B; }
-
-    .task-list { display: none; padding: 6px 12px; border-top: 1px solid #F3F4F6; }
-    .group-card.open .task-list { display: block; }
-
-    .task-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed #F3F4F6; }
-    .task-item.hidden { display: none !important; }
+    /* アコーディオン・タスクリスト */
+    .category-group { background: white; border-radius: 10px; margin-bottom: 12px; border: 1px solid #E5E7EB; overflow: hidden; }
+    .category-header { background: #F8FAFC; padding: 12px 14px; font-weight: bold; font-size: 0.95rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .task-list { padding: 8px 12px; }
+    .task-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #F1F5F9; }
     .task-item:last-child { border-bottom: none; }
-    .task-name { font-size: 0.85rem; color: #374151; flex: 1; padding-right: 8px; }
+    .task-name { font-size: 0.88rem; font-weight: 500; }
+    
+    .segmented-control { display: flex; background: #F1F5F9; border-radius: 6px; padding: 2px; gap: 2px; }
+    .segmented-btn { border: none; background: transparent; padding: 6px 10px; font-size: 0.78rem; font-weight: bold; border-radius: 4px; cursor: pointer; color: #64748B; transition: all 0.2s; }
+    .segmented-btn.active-wife { background: var(--wife-bg); color: var(--wife-color); }
+    .segmented-btn.active-husband { background: var(--husband-bg); color: var(--husband-color); }
+    .segmented-btn.active-other { background: var(--other-bg); color: var(--other-color); }
 
-    /* 分担ボタン群 */
-    .btn-group { display: flex; gap: 4px; }
-    .btn-assign { border: 1px solid #E5E7EB; background: #F9FAFB; color: #6B7280; padding: 4px 8px; font-size: 0.75rem; border-radius: 6px; cursor: pointer; font-weight: bold; transition: all 0.15s; }
-    
-    .btn-assign[data-target="妻"].active { background: var(--wife-bg); color: var(--wife-color); border-color: var(--wife-color); }
-    .btn-assign[data-target="夫"].active { background: var(--husband-bg); color: var(--husband-color); border-color: var(--husband-color); }
-    .btn-assign[data-target="その他"].active { background: var(--other-bg); color: var(--other-color); border-color: var(--other-color); }
+    /* 固定フッター (Sticky Footer) */
+    .sticky-footer { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #E5E7EB; box-shadow: 0 -4px 16px rgba(0,0,0,0.12); padding: 10px 16px 16px; z-index: 100; max-width: 600px; margin: 0 auto; }
+    .ratio-bar-container { margin-bottom: 6px; }
+    .ratio-labels { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px; }
+    .label-husband { color: var(--husband-color); }
+    .label-wife { color: var(--wife-color); }
+    .progress-bar { height: 10px; background: #E5E7EB; border-radius: 5px; overflow: hidden; display: flex; }
+    .progress-husband { background: var(--husband-color); height: 100%; transition: width 0.3s; }
+    .progress-wife { background: var(--wife-color); height: 100%; transition: width 0.3s; }
+    .disclaimer { font-size: 0.72rem; color: #6B7280; text-align: center; margin-bottom: 8px; line-height: 1.3; }
+    .btn-main-action { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 0.95rem; cursor: pointer; box-shadow: 0 2px 6px rgba(79,70,229,0.3); }
 
-    /* 育児オプションカード */
-    .childcare-option-card { background: white; border: 2px dashed #CBD5E1; border-radius: 12px; padding: 14px; margin: 24px 0 16px 0; }
-    .childcare-header { display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
-    .childcare-title { font-weight: bold; font-size: 0.95rem; color: #334155; display: flex; align-items: center; gap: 6px; }
-    .checkbox-lg { width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer; }
+    /* 結果画面（次ページ） */
+    #result-view { display: none; }
+    .result-card { background: white; border-radius: 12px; padding: 18px; border: 1px solid #E5E7EB; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 16px; }
+    .result-title { font-size: 1.2rem; font-weight: bold; color: var(--primary); text-align: center; margin-bottom: 12px; }
+    .tag-section { margin-bottom: 16px; }
+    .tag-section-title { font-size: 0.9rem; font-weight: bold; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 2px solid #F3F4F6; }
+    .tag-container { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip { padding: 5px 12px; border-radius: 16px; font-size: 0.82rem; font-weight: 500; }
+    .chip-husband { background: var(--husband-bg); color: var(--husband-color); }
+    .chip-wife { background: var(--wife-bg); color: var(--wife-color); }
+    .chip-other { background: var(--other-bg); color: var(--other-color); }
     
-    .stage-selector { display: none; margin-top: 12px; padding-top: 10px; border-top: 1px solid #E2E8F0; gap: 8px; }
-    .stage-selector.active { display: flex; flex-wrap: wrap; }
-    .stage-label { font-size: 0.85rem; color: #475569; display: flex; align-items: center; gap: 6px; cursor: pointer; background: #F8FAFC; padding: 6px 10px; border-radius: 6px; border: 1px solid #E2E8F0; }
-
-    /* 結果表示エリア */
-    .action-area { margin-top: 20px; text-align: center; }
-    .btn-submit { background: #10B981; color: white; border: none; padding: 12px 24px; font-size: 1rem; font-weight: bold; border-radius: 10px; cursor: pointer; width: 100%; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2); }
-    
-    .result-box { display: none; background: white; border-radius: 14px; border: 1px solid #CBD5E1; padding: 16px; margin-top: 20px; text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-    .result-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 14px; text-align: center; color: var(--text); border-bottom: 2px dashed #E2E8F0; padding-bottom: 8px; }
-    
-    /* 人別のカードスタイル */
-    .person-card { border-radius: 10px; padding: 12px; margin-bottom: 14px; }
-    .person-card.wife { background: #FDF2F8; border: 1px solid #FBCFE8; }
-    .person-card.husband { background: #EFF6FF; border: 1px solid #BFDBFE; }
-    .person-card.other { background: #ECFDF5; border: 1px solid #A7F3D0; }
-    
-    .person-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: bold; font-size: 0.95rem; }
-    .person-header.wife { color: var(--wife-color); }
-    .person-header.husband { color: var(--husband-color); }
-    .person-header.other { color: var(--other-color); }
-    
-    .count-badge { font-size: 0.75rem; padding: 2px 8px; border-radius: 12px; background: white; border: 1px solid currentColor; }
-
-    /* グループ＆タグ（チップ）デザイン */
-    .res-group-title { font-size: 0.8rem; font-weight: bold; color: #475569; margin: 8px 0 4px 0; display: flex; align-items: center; gap: 4px; }
-    .res-chips-container { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
-    .task-chip { background: white; color: #334155; font-size: 0.78rem; padding: 4px 9px; border-radius: 14px; border: 1px solid #E2E8F0; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
-
-    .btn-copy { background: #374151; color: white; border: none; padding: 10px; font-size: 0.85rem; border-radius: 8px; width: 100%; margin-top: 6px; cursor: pointer; font-weight: bold; }
+    .btn-secondary { background: #F3F4F6; color: #374151; border: 1px solid #D1D5DB; padding: 11px; border-radius: 8px; font-weight: bold; width: 100%; font-size: 0.9rem; cursor: pointer; margin-top: 8px; }
+    .btn-share { background: #10B981; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; font-size: 0.95rem; cursor: pointer; margin-top: 12px; }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>カジワリ AI</h1>
-    <div class="subtitle">選ぶだけ・下書きAIでお互い納得の家事分担</div>
+    <h1>カジワリ</h1>
+    <div class="subtitle">家事・育児分担の下書きツール</div>
   </header>
 
-  <!-- 冒頭の案内カード -->
-  <div class="intro-card">
-    <div class="intro-title">💡 はじめに：このツールの使い方</div>
-    このツールは相手に分担を押し付けるためのものではなく、<strong>「AIに下書き作らせてみたんだけど、どう思う？」と二人で笑顔で話し合うためのたたき台ツール</strong>です。まずは気楽にAIに下書きを作らせて、二人で画面を見ながら微調整してみましょう！
-  </div>
+  <!-- 入力画面 (INPUT VIEW) -->
+  <div id="input-view">
+    <div class="storage-bar">
+      <button class="btn-storage" onclick="saveData()">💾 スマホに保存</button>
+      <button class="btn-storage" onclick="loadData()">📁 前回のデータを復元</button>
+    </div>
 
-  <!-- ワンタップ保存・復元バー（ログイン不要） -->
-  <div class="storage-bar">
-    <button class="btn-storage" onclick="saveToLocalStorage()">💾 今の状態をスマホに保存</button>
-    <button class="btn-storage" onclick="loadFromLocalStorage()">📂 前回の保存データを読み込む</button>
-  </div>
-
-  <!-- AI設定パネル -->
-  <div class="ai-box">
-    <div class="ai-box-title">🤖 AIにおまかせ下書き</div>
-    
-    <div class="form-group">
-      <div class="form-label">
-        <span>希望比率（夫 : 妻）</span>
-        <span class="ratio-badge" id="ratioLabel">夫 50% : 妻 50%</span>
+    <div class="ai-box">
+      <div class="ai-box-title">🤖 AIにおまかせ下書き</div>
+      <div class="form-group">
+        <div class="form-label">
+          <span>希望比率 (夫 : 妻)</span>
+          <span class="ratio-badge" id="ai-ratio-badge">夫 50% : 妻 50%</span>
+        </div>
+        <div class="slider-container">
+          <input type="range" id="ai-ratio-slider" min="0" max="100" value="50" oninput="updateAiRatioBadge(this.value)">
+        </div>
       </div>
-      <div class="slider-container">
-        <span style="font-size:0.75rem;">0:100</span>
-        <input type="range" id="ratioSlider" min="0" max="100" value="50" oninput="updateRatioLabel()">
-        <span style="font-size:0.75rem;">100:0</span>
+      <div class="form-group">
+        <label class="form-label">夫の苦手・NGな家事</label>
+        <input type="text" id="husband-ng" class="input-text" placeholder="例: 料理全般、裁縫">
+      </div>
+      <div class="form-group">
+        <label class="form-label">妻の苦手・NGな家事</label>
+        <input type="text" id="wife-ng" class="input-text" placeholder="例: 車の運転、機械操作">
+      </div>
+      <button class="btn-ai" onclick="applyAiDraft()">この条件でAIに自動入力させる</button>
+    </div>
+
+    <input type="text" class="search-box" id="search-input" placeholder="🔍 家事名で検索 (例: 料理、ゴミ、送迎) ..." oninput="filterTasks(this.value)">
+
+    <div id="task-categories"></div>
+  </div>
+
+  <!-- 結果画面 (RESULT VIEW) -->
+  <div id="result-view">
+    <div class="result-card">
+      <div class="result-title">📋 家事分担シート</div>
+      
+      <div class="ratio-bar-container" style="margin-bottom: 16px;">
+        <div class="ratio-labels">
+          <span class="label-husband">夫 <span id="res-husband-pct">0%</span></span>
+          <span class="label-wife">妻 <span id="res-wife-pct">0%</span></span>
+        </div>
+        <div class="progress-bar">
+          <div id="res-progress-husband" class="progress-husband" style="width: 50%;"></div>
+          <div id="res-progress-wife" class="progress-wife" style="width: 50%;"></div>
+        </div>
+        <p class="disclaimer" style="margin-top: 6px;">※件数ベースの目安です。実際の負荷感に応じた対話の参考にどうぞ</p>
+      </div>
+
+      <div class="tag-section">
+        <div class="tag-section-title" style="color: var(--husband-color);">🔷 夫が担当する家事</div>
+        <div class="tag-container" id="husband-tags"></div>
+      </div>
+
+      <div class="tag-section">
+        <div class="tag-section-title" style="color: var(--wife-color);">🌸 妻が担当する家事</div>
+        <div class="tag-container" id="wife-tags"></div>
+      </div>
+
+      <div class="tag-section">
+        <div class="tag-section-title" style="color: var(--other-color);">⚙️ 共有・外部・その他</div>
+        <div class="tag-container" id="other-tags"></div>
+      </div>
+
+      <button class="btn-share" onclick="copyShareText()">📋 結果テキストをコピーする</button>
+      <button class="btn-secondary" onclick="showInputView()">← 条件や担当を変更する</button>
+    </div>
+  </div>
+
+  <!-- 固定フッター -->
+  <div class="sticky-footer" id="sticky-footer">
+    <div class="ratio-bar-container">
+      <div class="ratio-labels">
+        <span class="label-husband">夫 <span id="ft-husband-pct">0%</span></span>
+        <span class="label-wife">妻 <span id="ft-wife-pct">0%</span></span>
+      </div>
+      <div class="progress-bar">
+        <div id="ft-progress-husband" class="progress-husband" style="width: 0%;"></div>
+        <div id="ft-progress-wife" class="progress-wife" style="width: 0%;"></div>
       </div>
     </div>
-
-    <div class="form-group">
-      <div class="form-label"><span>夫の苦手・NGな家事</span></div>
-      <input type="text" id="husbandNg" class="input-text" placeholder="例：料理全般、アイロンがけ、裁縫">
-    </div>
-
-    <div class="form-group">
-      <div class="form-label"><span>妻の苦手・NGな家事</span></div>
-      <input type="text" id="wifeNg" class="input-text" placeholder="例：車の運転、高い所の掃除、高圧洗浄">
-    </div>
-
-    <button class="btn-ai" onclick="applyAiDraft()">この条件でAIに自動入力させる</button>
-  </div>
-
-  <!-- 検索窓 -->
-  <div class="search-box">
-    <input type="text" id="searchInput" class="search-input" placeholder="🔍 家事名で検索（例: ゴミ、料理、干す）..." oninput="filterTasks()">
-  </div>
-
-  <!-- 基本家事アコーディオン -->
-  <div id="accordionContainer"></div>
-
-  <!-- 最下部：育児追加オプション -->
-  <div class="childcare-option-card">
-    <label class="childcare-header" for="childcareToggle">
-      <div class="childcare-title">
-        <span>👶 育児・お子様に関する項目を追加する</span>
-      </div>
-      <input type="checkbox" id="childcareToggle" class="checkbox-lg" onchange="toggleChildcareSection()">
-    </label>
-
-    <div id="stageSelector" class="stage-selector">
-      <span style="font-size:0.8rem; font-weight:bold; width:100%; color:#64748B;">該当する段階を選択（複数可）：</span>
-      <label class="stage-label">
-        <input type="checkbox" id="stageNursery" checked onchange="updateChildcareTasks()"> 保育園・幼稚園
-      </label>
-      <label class="stage-label">
-        <input type="checkbox" id="stageSchool" checked onchange="updateChildcareTasks()"> 小学校
-      </label>
-    </div>
-  </div>
-
-  <!-- 育児用アコーディオン -->
-  <div id="childcareAccordionContainer"></div>
-
-  <!-- 決定ボタン＆結果表示 -->
-  <div class="action-area">
-    <button class="btn-submit" onclick="generateResult()">この内容で分担シートを表示する</button>
-
-    <div id="resultBox" class="result-box">
-      <div class="result-title">📋 分担シート</div>
-      <div id="resultContent"></div>
-      <button class="btn-copy" onclick="copyResultText()">共有テキストをコピーする</button>
-    </div>
+    <p class="disclaimer">※件数ベースの目安です。実際の負荷感に応じた対話の参考にどうぞ</p>
+    <button class="btn-main-action" id="btn-toggle-view" onclick="showResultView()">分担シート（結果）を見る →</button>
   </div>
 
   <script>
-    const choreData = [
+    // タスクマスターデータ
+    const taskData = [
       {
         category: "🍳 食事・キッチン",
-        isChildcare: false,
-        groups: [
-          {
-            id: "g1", name: "夕飯の準備",
-            tasks: [
-              { id: "t1", name: "献立作成・冷蔵庫チェック", tags: "料理" },
-              { id: "t2", name: "食材の買い出し・受取", tags: "買い物" },
-              { id: "t3", name: "下ごしらえ・調理", tags: "料理" },
-              { id: "t4", name: "配膳・食卓のセッティング", tags: "料理" },
-              { id: "t5", name: "残菜処理・保存容器詰め", tags: "料理" }
-            ]
-          },
-          {
-            id: "g2", name: "朝食・お弁当",
-            tasks: [
-              { id: "t6", name: "朝食の準備・セッティング", tags: "料理" },
-              { id: "t7", name: "お弁当の調理・パッキング", tags: "料理" },
-              { id: "t8", name: "水筒の準備・お茶の煮出し", tags: "料理" }
-            ]
-          },
-          {
-            id: "g3", name: "片付け・キッチン維持",
-            tasks: [
-              { id: "t9", name: "食器洗い・食洗機へのセット", tags: "水回り" },
-              { id: "t10", name: "食洗機・乾燥後の食器戻し", tags: "水回り" },
-              { id: "t11", name: "排水口ゴミ受け清掃・生ゴミ処理", tags: "水回り" },
-              { id: "t12", name: "コンロ・調理場・台所の拭き上げ", tags: "掃除" }
-            ]
-          }
-        ]
+        tasks: ["献立作成・冷蔵庫チェック", "食材の買い出し・受取", "下ごしらえ・調理", "配膳・食卓のセッティング", "残菜処理・保存容器詰め", "食器洗い・食洗機稼働", "コンロ・シンクの掃除"]
       },
       {
-        category: "🧹 掃除・お手入れ",
-        isChildcare: false,
-        groups: [
-          {
-            id: "g4", name: "日常の部屋掃除",
-            tasks: [
-              { id: "t13", name: "リビング・寝室の掃除機がけ", tags: "掃除" },
-              { id: "t14", name: "散らかった物の片付け・定位置戻し", tags: "掃除" },
-              { id: "t15", name: "フローリング拭き・ロボット掃除機の手入れ", tags: "掃除" }
-            ]
-          },
-          {
-            id: "g5", name: "水回りの掃除",
-            tasks: [
-              { id: "t16", name: "お風呂掃除・防カビ対策", tags: "水回り" },
-              { id: "t17", name: "トイレ掃除・ノズル清掃", tags: "水回り" },
-              { id: "t18", name: "洗面台の掃除・鏡拭き", tags: "水回り" }
-            ]
-          },
-          {
-            id: "g6", name: "ゴミ出し一式",
-            tasks: [
-              { id: "t19", name: "各部屋のゴミ回収・袋縛り", tags: "ゴミ" },
-              { id: "t20", name: "集積所へのゴミ出し", tags: "ゴミ" },
-              { id: "t21", name: "ゴミ箱への新しい袋のセット", tags: "ゴミ" },
-              { id: "t22", name: "段ボール・資源ゴミの解体・まとめ", tags: "ゴミ" }
-            ]
-          }
-        ]
+        category: "🧹 掃除・片付け",
+        tasks: ["リビングの片付け・掃除機", "風呂掃除・排水口掃除", "トイレ掃除", "ゴミまとめ・ゴミ出し", "部屋の換気・空気清浄機手入れ"]
       },
       {
-        category: "🧺 洗濯・衣類管理",
-        isChildcare: false,
-        groups: [
-          {
-            id: "g7", name: "日常の洗濯",
-            tasks: [
-              { id: "t23", name: "洗濯物の仕分け・洗濯機を回す", tags: "洗濯" },
-              { id: "t24", name: "洗濯物を干す（外干し・部屋干し）", tags: "洗濯" },
-              { id: "t25", name: "乾燥機セット・フィルター掃除", tags: "洗濯" },
-              { id: "t26", name: "洗濯物の取り込み", tags: "洗濯" },
-              { id: "t27", name: "洗濯物をたたむ", tags: "洗濯" },
-              { id: "t28", name: "クローゼット・引き出しへの収納", tags: "洗濯" }
-            ]
-          },
-          {
-            id: "g8", name: "特別・季節の衣類ケア",
-            tasks: [
-              { id: "t29", name: "アイロンがけ", tags: "アイロン" },
-              { id: "t30", name: "クリーニングの出し・受け取り", tags: "洗濯" },
-              { id: "t31", name: "シーツ・布団カバーの洗濯・交換", tags: "洗濯" },
-              { id: "t32", name: "衣替え・サイズアウト服の整理", tags: "服" }
-            ]
-          }
-        ]
+        category: "🧺 洗濯・衣類",
+        tasks: ["洗濯機まわし・干す", "取り込み・畳む", "しまう・クローゼット整理", "アイロンがけ・靴磨き"]
       },
       {
-        category: "📦 日用品・手続き・管理",
-        isChildcare: false,
-        groups: [
-          {
-            id: "g9", name: "名もなき裏方・在庫管理",
-            tasks: [
-              { id: "t33", name: "日用品の在庫管理・注文（洗剤・ペーパー類）", tags: "管理" },
-              { id: "t34", name: "シャンプー・ハンドソープ等の詰め替え", tags: "管理" },
-              { id: "t35", name: "郵便物の回収・開封・仕分け", tags: "管理" }
-            ]
-          },
-          {
-            id: "g10", name: "行政・手続き・車",
-            tasks: [
-              { id: "t36", name: "家計管理・生活費の清算", tags: "手続き" },
-              { id: "t37", name: "行政手続き・契約・更新（保険・ネット等）", tags: "手続き" },
-              { id: "t38", name: "車の給油・洗車・点検手配", tags: "車" }
-            ]
-          }
-        ]
+        category: "📄 名もなき家事・日用品",
+        tasks: ["日用品の在庫管理・補充", "郵便物チェック・仕分け", "地域・マンション役員対応", "家庭ごみ用袋のセット"]
       },
       {
-        category: "👶 育児・子どもケア",
-        isChildcare: true,
-        groups: [
-          {
-            id: "g11", name: "【保育園・幼稚園】送迎・準備",
-            stage: "nursery",
-            tasks: [
-              { id: "t39", name: "登園前の準備・服の着替え補助", tags: "育児" },
-              { id: "t40", name: "連絡帳記入・体温計測・アプリ入力", tags: "育児" },
-              { id: "t41", name: "保育園・幼稚園への「送り」", tags: "育児" },
-              { id: "t42", name: "保育園・幼稚園からの「お迎え」", tags: "育児" },
-              { id: "t43", name: "持ち帰ったエプロン・タオル・服の出し処理", tags: "育児" }
-            ]
-          },
-          {
-            id: "g12", name: "【小学校】学習・学校準備",
-            stage: "school",
-            tasks: [
-              { id: "t44", name: "宿題チェック・音読確認・連絡帳へのサイン", tags: "育児" },
-              { id: "t45", name: "翌日の時間割チェック・持ち物準備", tags: "育児" },
-              { id: "t46", name: "学校からのプリント・おたよりの確認・押印", tags: "育児" },
-              { id: "t47", name: "習い事の送迎・スケジュール管理", tags: "育児" },
-              { id: "t48", name: "保護者会・PTA・個人面談への出席", tags: "育児" }
-            ]
-          },
-          {
-            id: "g13", name: "【共通】日常のお世話・健康管理",
-            stage: "common",
-            tasks: [
-              { id: "t49", name: "子供のお風呂入れ", tags: "育児" },
-              { id: "t50", name: "風呂上がりのケア（保湿・ドライヤー・着替え）", tags: "育児" },
-              { id: "t51", name: "爪切り・耳かき・身だしなみチェック", tags: "育児" },
-              { id: "t52", name: "小児科・歯医者の受診手配・連れて行く", tags: "育児" }
-            ]
-          }
-        ]
+        category: "👶 育児（オプション）",
+        tasks: ["朝の着替え・準備", "保育園・学校の送り迎え", "習い事の送迎・付き添い", "風呂入れ・スキンケア", "寝かしつけ・絵本読み"]
       }
     ];
 
-    let assignments = {};
+    // NG連想語辞書
+    const synMap = {
+      '料理': ['料理', '調理', '献立', '食材', '配膳', '残菜', 'キッチン'],
+      '運転': ['運転', '車', '送迎'],
+      '掃除': ['掃除', 'ゴミ', '片付け', 'シンク', 'トイレ', '風呂'],
+      '洗濯': ['洗濯', '畳む', '干す', 'アイロン']
+    };
+
+    let selections = {};
 
     function init() {
-      renderAccordions();
-      updateRatioLabel();
+      renderTasks();
+      calculateRatio();
     }
 
-    function renderAccordions() {
-      const baseContainer = document.getElementById('accordionContainer');
-      const childcareContainer = document.getElementById('childcareAccordionContainer');
-      
-      baseContainer.innerHTML = '';
-      childcareContainer.innerHTML = '';
+    function renderTasks() {
+      const container = document.getElementById('task-categories');
+      container.innerHTML = '';
 
-      choreData.forEach(cat => {
-        const catDiv = document.createElement('div');
-        catDiv.className = 'cat-block';
-        if (cat.isChildcare) catDiv.id = 'childcareCategoryBlock';
+      taskData.forEach((cat, cIdx) => {
+        const catGroup = document.createElement('div');
+        catGroup.className = 'category-group';
+        
+        const header = document.createElement('div');
+        header.className = 'category-header';
+        header.innerHTML = `<span>${cat.category}</span> <span>▼</span>`;
+        header.onclick = () => {
+          const list = catGroup.querySelector('.task-list');
+          list.style.display = list.style.display === 'none' ? 'block' : 'none';
+        };
 
-        let catHtml = `<div class="category-title">${cat.category}</div>`;
+        const list = document.createElement('div');
+        list.className = 'task-list';
 
-        cat.groups.forEach(group => {
-          catHtml += `
-            <div class="group-card open" id="card-${group.id}" data-stage="${group.stage || 'all'}">
-              <div class="group-header" onclick="toggleAccordion('${group.id}')">
-                <div class="group-title-area">
-                  <span class="toggle-icon">▼</span>
-                  <span class="group-name">${group.name}</span>
-                </div>
-                <div class="btn-group" onclick="event.stopPropagation()">
-                  <button class="btn-assign" id="parent-btn-${group.id}-妻" data-target="妻" onclick="assignGroup('${group.id}', '妻')">妻</button>
-                  <button class="btn-assign" id="parent-btn-${group.id}-夫" data-target="夫" onclick="assignGroup('${group.id}', '夫')">夫</button>
-                  <button class="btn-assign" id="parent-btn-${group.id}-その他" data-target="その他" onclick="assignGroup('${group.id}', 'その他')">他</button>
-                </div>
-              </div>
-              <div class="task-list">
+        cat.tasks.forEach((tName) => {
+          const item = document.createElement('div');
+          item.className = 'task-item';
+          item.setAttribute('data-task', tName);
+
+          const nameSpan = document.createElement('span');
+          nameSpan.className = 'task-name';
+          nameSpan.textContent = tName;
+
+          const currentSel = selections[tName] || 'none';
+
+          const control = document.createElement('div');
+          control.className = 'segmented-control';
+          control.innerHTML = `
+            <button class="segmented-btn ${currentSel === '妻' ? 'active-wife' : ''}" onclick="setAssign('${tName}', '妻')">妻</button>
+            <button class="segmented-btn ${currentSel === '夫' ? 'active-husband' : ''}" onclick="setAssign('${tName}', '夫')">夫</button>
+            <button class="segmented-btn ${currentSel === '他' ? 'active-other' : ''}" onclick="setAssign('${tName}', '他')">他</button>
           `;
 
-          group.tasks.forEach(task => {
-            catHtml += `
-              <div class="task-item" id="item-${task.id}">
-                <span class="task-name">${task.name}</span>
-                <div class="btn-group">
-                  <button class="btn-assign" id="btn-${task.id}-妻" data-target="妻" onclick="toggleTask('${task.id}', '妻')">妻</button>
-                  <button class="btn-assign" id="btn-${task.id}-夫" data-target="夫" onclick="toggleTask('${task.id}', '夫')">夫</button>
-                  <button class="btn-assign" id="btn-${task.id}-その他" data-target="その他" onclick="toggleTask('${task.id}', 'その他')">他</button>
-                </div>
-              </div>
-            `;
-          });
-
-          catHtml += `</div></div>`;
+          item.appendChild(nameSpan);
+          item.appendChild(control);
+          list.appendChild(item);
         });
 
-        catDiv.innerHTML = catHtml;
+        catGroup.appendChild(header);
+        catGroup.appendChild(list);
+        container.appendChild(catGroup);
+      });
+    }
 
-        if (cat.isChildcare) {
-          childcareContainer.appendChild(catDiv);
-        } else {
-          baseContainer.appendChild(catDiv);
-        }
+    function setAssign(taskName, role) {
+      if (selections[taskName] === role) {
+        delete selections[taskName];
+      } else {
+        selections[taskName] = role;
+      }
+      renderTasks();
+      calculateRatio();
+    }
+
+    function calculateRatio() {
+      let hCount = 0;
+      let wCount = 0;
+
+      Object.values(selections).forEach(role => {
+        if (role === '夫') hCount++;
+        if (role === '妻') wCount++;
       });
 
-      updateChildcareTasks();
-      updateUI();
-    }
+      const total = hCount + wCount;
+      let hPct = 50;
+      let wPct = 50;
 
-    function toggleChildcareSection() {
-      const isChecked = document.getElementById('childcareToggle').checked;
-      const selector = document.getElementById('stageSelector');
-      if (isChecked) selector.classList.add('active');
-      else selector.classList.remove('active');
-
-      updateChildcareTasks();
-    }
-
-    function updateChildcareTasks() {
-      const isEnabled = document.getElementById('childcareToggle').checked;
-      const isNursery = document.getElementById('stageNursery').checked;
-      const isSchool = document.getElementById('stageSchool').checked;
-
-      const block = document.getElementById('childcareCategoryBlock');
-      if (!block) return;
-
-      if (!isEnabled) {
-        block.classList.add('hidden');
-        choreData.find(c => c.isChildcare).groups.forEach(g => g.tasks.forEach(t => assignments[t.id] = null));
-        updateUI();
-        return;
+      if (total > 0) {
+        hPct = Math.round((hCount / total) * 100);
+        wPct = 100 - hPct;
+      } else {
+        hPct = 0;
+        wPct = 0;
       }
 
-      block.classList.remove('hidden');
+      // フッター更新
+      document.getElementById('ft-husband-pct').textContent = hPct + '%';
+      document.getElementById('ft-wife-pct').textContent = wPct + '%';
+      document.getElementById('ft-progress-husband').style.width = hPct + '%';
+      document.getElementById('ft-progress-wife').style.width = wPct + '%';
 
-      choreData.find(c => c.isChildcare).groups.forEach(group => {
-        const card = document.getElementById(`card-${group.id}`);
-        if (!card) return;
+      // 結果画面のバー更新
+      document.getElementById('res-husband-pct').textContent = hPct + '%';
+      document.getElementById('res-wife-pct').textContent = wPct + '%';
+      document.getElementById('res-progress-husband').style.width = hPct + '%';
+      document.getElementById('res-progress-wife').style.width = wPct + '%';
+    }
 
-        let visible = false;
-        if (group.stage === 'common') visible = true;
-        if (group.stage === 'nursery' && isNursery) visible = true;
-        if (group.stage === 'school' && isSchool) visible = true;
-
-        if (visible) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-          group.tasks.forEach(t => assignments[t.id] = null);
+    function isNgTask(ngText, taskName) {
+      if (!ngText) return false;
+      if (taskName.includes(ngText)) return true;
+      for (const [key, synonyms] of Object.entries(synMap)) {
+        if (ngText.includes(key)) {
+          if (synonyms.some(syn => taskName.includes(syn))) {
+            return true;
+          }
         }
-      });
-
-      updateUI();
-    }
-
-    function updateRatioLabel() {
-      const val = document.getElementById('ratioSlider').value;
-      document.getElementById('ratioLabel').innerText = `夫 ${val}% : 妻 ${100 - val}%`;
-    }
-
-    function toggleAccordion(groupId) {
-      document.getElementById(`card-${groupId}`).classList.toggle('open');
-    }
-
-    function toggleTask(taskId, target) {
-      assignments[taskId] = (assignments[taskId] === target) ? null : target;
-      updateUI();
-    }
-
-    function assignGroup(groupId, target) {
-      const group = findGroup(groupId);
-      if (!group) return;
-
-      const allSame = group.tasks.every(t => assignments[t.id] === target);
-      group.tasks.forEach(t => {
-        assignments[t.id] = allSame ? null : target;
-      });
-      updateUI();
-    }
-
-    function updateUI() {
-      choreData.forEach(cat => {
-        cat.groups.forEach(group => {
-          group.tasks.forEach(task => {
-            ['妻', '夫', 'その他'].forEach(target => {
-              const btn = document.getElementById(`btn-${task.id}-${target}`);
-              if (btn) {
-                if (assignments[task.id] === target) btn.classList.add('active');
-                else btn.classList.remove('active');
-              }
-            });
-          });
-
-          ['妻', '夫', 'その他'].forEach(target => {
-            const parentBtn = document.getElementById(`parent-btn-${group.id}-${target}`);
-            if (parentBtn) {
-              const allMatch = group.tasks.every(t => assignments[t.id] === target);
-              if (allMatch && group.tasks.length > 0) parentBtn.classList.add('active');
-              else parentBtn.classList.remove('active');
-            }
-          });
-        });
-      });
+      }
+      return false;
     }
 
     function applyAiDraft() {
-      const husbandRatio = parseInt(document.getElementById('ratioSlider').value);
-      const husbandNgText = document.getElementById('husbandNg').value;
-      const wifeNgText = document.getElementById('wifeNg').value;
+      const hSlider = parseInt(document.getElementById('ai-ratio-slider').value);
+      const hNg = document.getElementById('husband-ng').value.trim();
+      const wNg = document.getElementById('wife-ng').value.trim();
 
-      const isChildcareEnabled = document.getElementById('childcareToggle').checked;
-      const isNursery = document.getElementById('stageNursery').checked;
-      const isSchool = document.getElementById('stageSchool').checked;
+      const allTasks = [];
+      taskData.forEach(c => c.tasks.forEach(t => allTasks.push(t)));
 
-      choreData.forEach(cat => {
-        if (cat.isChildcare && !isChildcareEnabled) return;
+      selections = {};
 
-        cat.groups.forEach(group => {
-          if (cat.isChildcare) {
-            if (group.stage === 'nursery' && !isNursery) return;
-            if (group.stage === 'school' && !isSchool) return;
-          }
+      allTasks.forEach((tName, idx) => {
+        const hIsNg = isNgTask(hNg, tName);
+        const wIsNg = isNgTask(wNg, tName);
 
-          group.tasks.forEach(task => {
-            const isHusbandNg = isNgMatch(task.name + task.tags, husbandNgText);
-            const isWifeNg = isNgMatch(task.name + task.tags, wifeNgText);
-
-            if (isHusbandNg && !isWifeNg) {
-              assignments[task.id] = '妻';
-            } else if (isWifeNg && !isHusbandNg) {
-              assignments[task.id] = '夫';
-            } else {
-              const rand = Math.random() * 100;
-              assignments[task.id] = (rand < husbandRatio) ? '夫' : '妻';
-            }
-          });
-        });
-      });
-
-      updateUI();
-    }
-
-    function isNgMatch(text, ngInput) {
-      if (!ngInput || !ngInput.trim()) return false;
-      const keywords = ngInput.split(/[,、\s]+/);
-      return keywords.some(kw => kw.length > 0 && text.includes(kw));
-    }
-
-    function filterTasks() {
-      const query = document.getElementById('searchInput').value.toLowerCase().trim();
-
-      choreData.forEach(cat => {
-        cat.groups.forEach(group => {
-          const card = document.getElementById(`card-${group.id}`);
-          if (!card || card.style.display === 'none') return;
-
-          let hasVisibleTask = false;
-
-          group.tasks.forEach(task => {
-            const itemEl = document.getElementById(`item-${task.id}`);
-            if (!itemEl) return;
-
-            if (!query || task.name.toLowerCase().includes(query) || group.name.toLowerCase().includes(query)) {
-              itemEl.classList.remove('hidden');
-              hasVisibleTask = true;
-            } else {
-              itemEl.classList.add('hidden');
-            }
-          });
-
-          if (query && hasVisibleTask) {
-            card.classList.add('open');
-          }
-        });
-      });
-    }
-
-    function findGroup(groupId) {
-      for (const cat of choreData) {
-        for (const g of cat.groups) {
-          if (g.id === groupId) return g;
-        }
-      }
-      return null;
-    }
-
-    // データの保存（localStorage）
-    function saveToLocalStorage() {
-      const saveData = {
-        assignments: assignments,
-        ratio: document.getElementById('ratioSlider').value,
-        husbandNg: document.getElementById('husbandNg').value,
-        wifeNg: document.getElementById('wifeNg').value,
-        childcareToggle: document.getElementById('childcareToggle').checked,
-        stageNursery: document.getElementById('stageNursery').checked,
-        stageSchool: document.getElementById('stageSchool').checked
-      };
-
-      localStorage.setItem('kajivari_saved_data', JSON.stringify(saveData));
-      alert('💾 現在の分担内容をスマホに保存しました！');
-    }
-
-    // データの読み込み（localStorage）
-    function loadFromLocalStorage() {
-      const jsonStr = localStorage.getItem('kajivari_saved_data');
-      if (!jsonStr) {
-        alert('保存されたデータが見つかりませんでした。');
-        return;
-      }
-
-      try {
-        const savedData = JSON.parse(jsonStr);
-        assignments = savedData.assignments || {};
-        
-        if (savedData.ratio !== undefined) {
-          document.getElementById('ratioSlider').value = savedData.ratio;
-          updateRatioLabel();
-        }
-        if (savedData.husbandNg !== undefined) document.getElementById('husbandNg').value = savedData.husbandNg;
-        if (savedData.wifeNg !== undefined) document.getElementById('wifeNg').value = savedData.wifeNg;
-
-        if (savedData.childcareToggle !== undefined) {
-          document.getElementById('childcareToggle').checked = savedData.childcareToggle;
-          toggleChildcareSection();
-        }
-        if (savedData.stageNursery !== undefined) document.getElementById('stageNursery').checked = savedData.stageNursery;
-        if (savedData.stageSchool !== undefined) document.getElementById('stageSchool').checked = savedData.stageSchool;
-
-        updateChildcareTasks();
-        updateUI();
-        alert('📂 保存データを読み込みました！');
-      } catch (e) {
-        alert('データの復元に失敗しました。');
-      }
-    }
-
-    // 結果表示の生成
-    function generateResult() {
-      const resultBox = document.getElementById('resultBox');
-      const resultContent = document.getElementById('resultContent');
-      const isChildcareEnabled = document.getElementById('childcareToggle').checked;
-      const isNursery = document.getElementById('stageNursery').checked;
-      const isSchool = document.getElementById('stageSchool').checked;
-
-      const res = { '妻': {}, '夫': {}, 'その他': {} };
-      const counts = { '妻': 0, '夫': 0, 'その他': 0 };
-
-      choreData.forEach(cat => {
-        if (cat.isChildcare && !isChildcareEnabled) return;
-
-        cat.groups.forEach(group => {
-          if (cat.isChildcare) {
-            if (group.stage === 'nursery' && !isNursery) return;
-            if (group.stage === 'school' && !isSchool) return;
-          }
-
-          group.tasks.forEach(task => {
-            const assigned = assignments[task.id];
-            if (assigned) {
-              if (!res[assigned][group.name]) {
-                res[assigned][group.name] = [];
-              }
-              res[assigned][group.name].push(task.name);
-              counts[assigned]++;
-            }
-          });
-        });
-      });
-
-      let html = '';
-
-      const personConfigs = [
-        { key: '妻', title: '🌸 妻の担当', class: 'wife' },
-        { key: '夫', title: '🔹 夫の担当', class: 'husband' },
-        { key: 'その他', title: '🌿 その他の担当', class: 'other' }
-      ];
-
-      personConfigs.forEach(p => {
-        const groupObj = res[p.key];
-        const totalCount = counts[p.key];
-
-        if (totalCount > 0) {
-          html += `
-            <div class="person-card ${p.class}">
-              <div class="person-header ${p.class}">
-                <span>${p.title}</span>
-                <span class="count-badge">${totalCount}件</span>
-              </div>
-          `;
-
-          Object.keys(groupObj).forEach(gName => {
-            html += `<div class="res-group-title">📂 ${gName}</div><div class="res-chips-container">`;
-            groupObj[gName].forEach(tName => {
-              html += `<span class="task-chip">${tName}</span>`;
-            });
-            html += `</div>`;
-          });
-
-          html += `</div>`;
+        if (hIsNg && !wIsNg) {
+          selections[tName] = '妻';
+        } else if (wIsNg && !hIsNg) {
+          selections[tName] = '夫';
+        } else if (hIsNg && wIsNg) {
+          selections[tName] = '他';
+        } else {
+          // 比率に合わせて振り分け
+          const targetRole = (idx % 100 < hSlider) ? '夫' : '妻';
+          selections[tName] = targetRole;
         }
       });
 
-      if (counts['妻'] === 0 && counts['夫'] === 0 && counts['その他'] === 0) {
-        html = `<p style="font-size:0.85rem; color:#6B7280; text-align:center; padding: 12px;">まだ何も選択されていません。上のリストから選んでみてください！</p>`;
-      }
-
-      resultContent.innerHTML = html;
-      resultBox.style.display = 'block';
-      resultBox.scrollIntoView({ behavior: 'smooth' });
+      renderTasks();
+      calculateRatio();
     }
 
-    // 視認性を重視したLINE共有用テキストの生成
-    function copyResultText() {
-      const isChildcareEnabled = document.getElementById('childcareToggle').checked;
-      const isNursery = document.getElementById('stageNursery').checked;
-      const isSchool = document.getElementById('stageSchool').checked;
+    function updateAiRatioBadge(val) {
+      document.getElementById('ai-ratio-badge').textContent = `夫 ${val}% : 妻 ${100 - val}%`;
+    }
 
-      const res = { '妻': {}, '夫': {}, 'その他': {} };
-      const counts = { '妻': 0, '夫': 0, 'その他': 0 };
-
-      choreData.forEach(cat => {
-        if (cat.isChildcare && !isChildcareEnabled) return;
-
-        cat.groups.forEach(group => {
-          if (cat.isChildcare) {
-            if (group.stage === 'nursery' && !isNursery) return;
-            if (group.stage === 'school' && !isSchool) return;
-          }
-
-          group.tasks.forEach(task => {
-            const assigned = assignments[task.id];
-            if (assigned) {
-              if (!res[assigned][group.name]) {
-                res[assigned][group.name] = [];
-              }
-              res[assigned][group.name].push(task.name);
-              counts[assigned]++;
-            }
-          });
-        });
-      });
-
-      let text = "【家事分担のたたき台シート】\n（決定事項じゃないから二人で調整して決めよう〜！😊）\n\n";
-
-      const targets = [
-        { key: '妻', label: '🌸 妻の担当' },
-        { key: '夫', label: '🔹 夫の担当' },
-        { key: 'その他', label: '🌿 その他の担当' }
-      ];
-
-      targets.forEach(t => {
-        const total = counts[t.key];
-        if (total > 0) {
-          text += `━━━━━━━━━━━━━━━\n${t.label}（計${total}件）\n━━━━━━━━━━━━━━━\n`;
-          Object.keys(res[t.key]).forEach(gName => {
-            text += `▼ ${gName}\n`;
-            res[t.key][gName].forEach(taskName => {
-              text += ` ・ ${taskName}\n`;
-            });
-          });
-          text += `\n`;
+    function filterTasks(query) {
+      const items = document.querySelectorAll('.task-item');
+      items.forEach(item => {
+        const name = item.getAttribute('data-task');
+        if (name.includes(query)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
         }
       });
+    }
 
-      if (counts['妻'] === 0 && counts['夫'] === 0 && counts['その他'] === 0) {
-        text += "担当項目がまだ選択されていません。";
-      }
+    function showResultView() {
+      renderResultTags();
+      document.getElementById('input-view').style.display = 'none';
+      document.getElementById('result-view').style.display = 'block';
+      document.getElementById('sticky-footer').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+
+    function showInputView() {
+      document.getElementById('input-view').style.display = 'block';
+      document.getElementById('result-view').style.display = 'none';
+      document.getElementById('sticky-footer').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    function renderResultTags() {
+      const hContainer = document.getElementById('husband-tags');
+      const wContainer = document.getElementById('wife-tags');
+      const oContainer = document.getElementById('other-tags');
+
+      hContainer.innerHTML = '';
+      wContainer.innerHTML = '';
+      oContainer.innerHTML = '';
+
+      let hasH = false, hasW = false, hasO = false;
+
+      Object.entries(selections).forEach(([tName, role]) => {
+        const chip = document.createElement('span');
+        chip.className = `chip chip-${role === '夫' ? 'husband' : role === '妻' ? 'wife' : 'other'}`;
+        chip.textContent = tName;
+
+        if (role === '夫') { hContainer.appendChild(chip); hasH = true; }
+        if (role === '妻') { wContainer.appendChild(chip); hasW = true; }
+        if (role === '他') { oContainer.appendChild(chip); hasO = true; }
+      });
+
+      if (!hasH) hContainer.innerHTML = '<span style="font-size:0.8rem; color:#9CA3AF;">なし</span>';
+      if (!hasW) wContainer.innerHTML = '<span style="font-size:0.8rem; color:#9CA3AF;">なし</span>';
+      if (!hasO) oContainer.innerHTML = '<span style="font-size:0.8rem; color:#9CA3AF;">なし</span>';
+    }
+
+    function copyShareText() {
+      let text = "【カジワリ 家事分担シート】\n";
+      text += `夫 ${document.getElementById('res-husband-pct').textContent} : 妻 ${document.getElementById('res-wife-pct').textContent}\n\n`;
+
+      const hList = [], wList = [], oList = [];
+      Object.entries(selections).forEach(([tName, role]) => {
+        if (role === '夫') hList.push(tName);
+        if (role === '妻') wList.push(tName);
+        if (role === '他') oList.push(tName);
+      });
+
+      if (hList.length) text += `🔷 夫担当:\n・` + hList.join('\n・') + `\n\n`;
+      if (wList.length) text += `🌸 妻担当:\n・` + wList.join('\n・') + `\n\n`;
+      if (oList.length) text += `⚙️ 共有・その他:\n・` + oList.join('\n・') + `\n\n`;
+
+      text += "※件数ベースの目安です。実際の負荷感に応じた対話の参考にどうぞ\n";
+      text += "https://kajiwari.pages.dev";
 
       navigator.clipboard.writeText(text).then(() => {
-        alert('読みやすい共有用テキストをコピーしました！LINE等に貼り付けて送信できます。');
+        alert("分担結果テキストをクリップボードにコピーしました！LINEなどで共有できます。");
       });
+    }
+
+    function saveData() {
+      localStorage.setItem('kajiwari_data', JSON.stringify(selections));
+      alert("現在の入力内容をスマホに保存しました！");
+    }
+
+    function loadData() {
+      const saved = localStorage.getItem('kajiwari_data');
+      if (saved) {
+        selections = JSON.parse(saved);
+        renderTasks();
+        calculateRatio();
+        alert("保存データを復元しました！");
+      } else {
+        alert("保存されたデータが見つかりませんでした。");
+      }
     }
 
     init();
