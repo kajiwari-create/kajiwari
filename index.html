@@ -3,7 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>カジワリ - スマホで簡単・AI家事分担ツール</title>
+  <title>カジワリ AI - 選ぶだけ・下書きAIでお互い納得の家事分担</title>
+
+  <!-- OGP / SNS表示設定 -->
+  <meta property="og:title" content="カジワリ AI | 夫婦で笑顔で話し合う家事分担下書きツール">
+  <meta property="og:description" content="選ぶだけ・下書きAIでお互い納得の家事分担。押し付け合いではなく、二人の対話（Draft-making）のきっかけを作るWebアプリです。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kajiwari.pages.dev">
+  <meta property="og:image" content="https://kajiwari.pages.dev/ogp.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Analytics 4 (ID組み込み完了) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-78J1PC3BS6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-78J1PC3BS6');
+  </script>
+
   <style>
     :root {
       --primary: #4F46E5;
@@ -575,7 +593,6 @@
     }
 
     function updateUI() {
-      // 1. 各ボタンの表示更新
       choreData.forEach(cat => {
         cat.groups.forEach(group => {
           group.tasks.forEach(task => {
@@ -599,7 +616,6 @@
         });
       });
 
-      // 2. 比率バー（フッター＆結果画面）のリアルタイム更新
       let hCount = 0;
       let wCount = 0;
       const activeTasks = getActiveTasks();
@@ -633,7 +649,6 @@
       return keywords.some(kw => {
         if (!kw) return false;
         if (text.includes(kw)) return true;
-        // 連想語チェック
         for (const [key, synonyms] of Object.entries(synMap)) {
           if (kw.includes(key)) {
             if (synonyms.some(syn => text.includes(syn))) return true;
@@ -643,9 +658,8 @@
       });
     }
 
-    // AI自動割り振り（正比例＆連想NG判定ロジック）
     function applyAiDraft() {
-      const husbandRatio = parseInt(document.getElementById('ratioSlider').value); // 0〜100
+      const husbandRatio = parseInt(document.getElementById('ratioSlider').value);
       const husbandNgText = document.getElementById('husbandNg').value;
       const wifeNgText = document.getElementById('wifeNg').value;
 
@@ -653,7 +667,6 @@
       assignments = {};
       const freeTasks = [];
 
-      // 1. まずNG判定を適用
       activeTasks.forEach(task => {
         const fullText = task.name + " " + task.tags;
         const isHusbandNg = isNgMatch(fullText, husbandNgText);
@@ -670,7 +683,6 @@
         }
       });
 
-      // 2. 残りのフリータスクを希望比率（husbandRatio%）通りに分散して割り振る
       const totalFree = freeTasks.length;
       const targetHusbandCount = Math.round(totalFree * (husbandRatio / 100));
 
@@ -680,11 +692,14 @@
         } else if (targetHusbandCount === totalFree) {
           assignments[task.id] = '夫';
         } else {
-          // 均等間隔で分散配置するロジック
           const assignToHusband = Math.floor((index * targetHusbandCount) / totalFree) !== Math.floor(((index + 1) * targetHusbandCount) / totalFree);
           assignments[task.id] = assignToHusband ? '夫' : '妻';
         }
       });
+
+      if (typeof gtag === 'function') {
+        gtag('event', 'ai_draft_generated', { 'ratio': husbandRatio });
+      }
 
       updateUI();
     }
@@ -727,7 +742,6 @@
       return null;
     }
 
-    // データの保存（localStorage）
     function saveToLocalStorage() {
       const saveData = {
         assignments: assignments,
@@ -743,7 +757,6 @@
       alert('💾 現在の分担内容をスマホに保存しました！');
     }
 
-    // データの読み込み（localStorage）
     function loadFromLocalStorage() {
       const jsonStr = localStorage.getItem('kajivari_saved_data');
       if (!jsonStr) {
@@ -777,16 +790,18 @@
       }
     }
 
-    // 画面切り替え：結果表示
     function showResultView() {
       generateResult();
       document.getElementById('inputView').style.display = 'none';
       document.getElementById('resultView').style.display = 'block';
       document.getElementById('stickyFooter').style.display = 'none';
       window.scrollTo(0, 0);
+
+      if (typeof gtag === 'function') {
+        gtag('event', 'view_result');
+      }
     }
 
-    // 画面切り替え：入力画面に戻る
     function showInputView() {
       document.getElementById('inputView').style.display = 'block';
       document.getElementById('resultView').style.display = 'none';
@@ -794,7 +809,6 @@
       window.scrollTo(0, 0);
     }
 
-    // 結果表示の生成
     function generateResult() {
       const resultContent = document.getElementById('resultContent');
       const isChildcareEnabled = document.getElementById('childcareToggle').checked;
@@ -866,7 +880,6 @@
       resultContent.innerHTML = html;
     }
 
-    // LINE共有用テキストの生成
     function copyResultText() {
       const isChildcareEnabled = document.getElementById('childcareToggle').checked;
       const isNursery = document.getElementById('stageNursery').checked;
@@ -921,10 +934,17 @@
 
       if (counts['妻'] === 0 && counts['夫'] === 0 && counts['その他'] === 0) {
         text += "担当項目がまだ選択されていません。";
+      } else {
+        text += "─────────────────\n";
+        text += "あなたも夫婦で家事分担シートを作ってみる？👇\n";
+        text += "https://kajiwari.pages.dev\n";
       }
 
       navigator.clipboard.writeText(text).then(() => {
         alert('読みやすい共有用テキストをコピーしました！LINE等に貼り付けて送信できます。');
+        if (typeof gtag === 'function') {
+          gtag('event', 'share_text_copied');
+        }
       });
     }
 
